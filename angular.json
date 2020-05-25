@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "fuzzy-logic"
+    }
+  },
+  "defaultProject": "fuzzy-logic",
+  "cli": {
+    "analytics": false
+  }
 }
