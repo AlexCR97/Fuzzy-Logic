@@ -1,1 +1,58 @@
-<h1>Fuzzy Logic</h1>
+<!-- weather container -->
+<div class="wrapper">
+
+    <!-- weather layers -->
+    <div>
+        <div class="snow layer1 a"></div>
+        <div class="snow layer1"></div>
+        <div class="snow layer2 a"></div>
+        <div class="snow layer2"></div>
+        <div class="snow layer3 a"></div>
+        <div class="snow layer3"></div>
+    </div><!-- weather layers -->
+
+    <!-- main card container -->
+    <div class="container card card-body shadow">
+
+        <h1>Fuzzy Logic Simulator</h1>
+
+        <!-- current temperature -->
+        <div class="custom-slider">
+            <div class="d-flex justify-content-between">
+                <p>Current Temperature</p>
+                <h4>{{currentTemp}}</h4>
+            </div>
+            <input type="range" min="{{minTemp}}" max="{{maxTemp}}" [(ngModel)]="currentTemp" (ngModelChange)="onCurrentTempChange($event)">
+        </div>
+
+        <!-- desired temperature -->
+        <div class="custom-slider">
+            <div class="d-flex justify-content-between">
+                <p>Desired Temperature Level</p>
+                <h4>{{desiredTempLevel.toString()}}</h4>
+            </div>
+            <input type="range" min="{{minTempLevelIndex}}" max="{{maxTempLevelIndex}}" [(ngModel)]="desiredTempLevelIndex" (ngModelChange)="onDesiredTempLevelChange($event)">
+        </div>
+
+        <!-- info -->
+        <div class="row">
+            <div class="col-md">
+                <h6 class="text-center">Detected Temperature Levels</h6>
+                <div class="d-flex justify-content-center" *ngFor="let i of computedTempLevels">
+                    <p>{{i.temperatureLevel}}</p>
+                    <div class="mx-1"></div>
+                    <p>{{i.percentage * 100}}%</p>
+                </div>
+            </div>
+            <div class="col-md">
+                <h6 class="text-center">Most Accurate Temperature Level</h6>
+                <p class="text-center">{{mostAccurateTempLevel}}</p>
+            </div>
+            <div class="col-md">
+                <h6 class="text-center">Air Conditioner Action</h6>
+                <p class="text-center">{{acAction}}</p>
+            </div>
+        </div>
+    </div><!-- main card container -->
+
+</div><!-- weather container -->
