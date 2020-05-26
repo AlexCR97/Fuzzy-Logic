@@ -1,5 +1,219 @@
-.custom-container {
-    background-color: whitesmoke;
+/* Weather Engine */
+
+$bg-very-cold-1: #7397a1;
+$bg-very-cold-2: #3f2c41;
+$bg-cold-1: #9fd3c2;
+$bg-cold-2: #315b8a;
+$bg-warm-1: #dcffd5;
+$bg-warm-2: #1b7927;
+$bg-hot-1: #e9f0c3;
+$bg-hot-2: #c09e2d;
+$bg-very-hot-1: #ffd78e;
+$bg-very-hot-2: #c2451f;
+
+$snow-animation-name: fall;
+$snow-speed-1: 12s;
+$snow-speed-2: 15s;
+$snow-speed-3: 18s;
+$snow-particle-blur-1: 1px;
+$snow-particle-blur-2: $snow-particle-blur-1 * 2;
+$snow-particle-blur-3: $snow-particle-blur-2 * 2;
+$snow-particle-color: #ffffff;
+$snow-particle-count: 200;
+$snow-particle-opacity: 0.70;
+$snow-particle-size-1: 1.1rem;
+$snow-particle-size-2: 0.90rem;
+$snow-particle-size-3: 0.70rem;
+
+$hot-animation-name: rise;
+$hot-speed-1: 16s;
+$hot-speed-2: 19s;
+$hot-speed-3: 22s;
+$hot-particle-blur-1: 1px;
+$hot-particle-blur-2: $hot-particle-blur-1 * 2;
+$hot-particle-blur-3: $hot-particle-blur-2 * 2;
+$hot-particle-color: #ffffff;
+$hot-particle-count: 50;
+$hot-particle-opacity: 0.30;
+$hot-particle-size-1: 1.1rem;
+$hot-particle-size-2: 0.90rem;
+$hot-particle-size-3: 0.70rem;
+
+.weather-container {
+    width: 100vw;
+    height: 99vh;
+}
+
+.bg-very-cold {
+    background: radial-gradient(farthest-corner at 10vw 5vh, $bg-very-cold-1 1%, $bg-very-cold-2 100%);
+}
+
+.bg-cold {
+    background: radial-gradient(farthest-corner at 10vw 5vh, $bg-cold-1 1%, $bg-cold-2 100%);
+}
+
+.bg-warm {
+    background: radial-gradient(farthest-corner at 10vw 5vh, $bg-warm-1 1%, $bg-warm-2 100%);
+}
+
+.bg-hot {
+    background: radial-gradient(farthest-corner at 10vw 5vh, $bg-hot-1 1%, $bg-hot-2 100%);
+}
+
+.bg-very-hot {
+    background: radial-gradient(farthest-corner at 10vw 5vh, $bg-very-hot-1 1%, $bg-very-hot-2 100%);
+}
+
+/* Snow */
+
+$s1: "";
+$s2: "";
+$s3: "";
+
+@for $i from 1 through $snow-particle-count {
+    $s1: $s1 + (random(1000) * 0.1vw) + " " + (random(1000) * 0.1vh) + " " + 0 + " " + (random(50) * -0.01rem) + $snow-particle-color;
+    $s2: $s2 + (random(1000) * 0.1vw) + " " + (random(1000) * 0.1vh) + " " + 0 + " " + (random(50) * -0.01rem) + $snow-particle-color;
+    $s3: $s3 + (random(1000) * 0.1vw) + " " + (random(1000) * 0.1vh) + " " + 0 + " " + (random(50) * -0.01rem) + $snow-particle-color;
+
+    @if $i < $snow-particle-count {
+        $s1: $s1 + ",";
+        $s2: $s2 + ",";
+        $s3: $s3 + ",";
+    }
+}
+
+.snow-particle {
+    border-radius: 50%;
+    opacity: $snow-particle-opacity;
+
+    position: absolute;
+    top: -100vh;
+
+    animation-name: $snow-animation-name;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.snow-layer-1 {
+    width: $snow-particle-size-1;
+    height: $snow-particle-size-1;
+    filter: blur($snow-particle-blur-1);
+    box-shadow: #{$s1};
+    animation-duration: $snow-speed-1;
+}
+.snow-layer-1.other {
+    animation-delay: -($snow-speed-1 / 2);
+}
+
+.snow-layer-2 {
+    width: $snow-particle-size-2;
+    height: $snow-particle-size-2;
+    filter: blur($snow-particle-blur-2);
+    box-shadow: #{$s2};
+    animation-duration: $snow-speed-2;
+}
+.snow-layer-2.other {
+    animation-delay: -($snow-speed-2 / 2);
+}
+
+.snow-layer-3 {
+    width: $snow-particle-size-3;
+    height: $snow-particle-size-3;
+    filter: blur($snow-particle-blur-3);
+    box-shadow: #{$s3};
+    animation-delay: -($snow-speed-3 / 2);
+}
+.snow-layer-3.other {
+    animation-delay: -5s;
+}
+
+@keyframes fall {
+    100% {
+        transform: translateY(200vh);
+    }
+}
+
+/* Hot */
+
+$h1: "";
+$h2: "";
+$h3: "";
+
+@for $i from 1 through $hot-particle-count {
+    $h1: $h1 + (random(1000) * 0.1vw) + " " + (random(1000) * 0.1vh) + " " + 0 + " " + (random(50) * -0.01rem) + $hot-particle-color;
+    $h2: $h2 + (random(1000) * 0.1vw) + " " + (random(1000) * 0.1vh) + " " + 0 + " " + (random(50) * -0.01rem) + $hot-particle-color;
+    $h3: $h3 + (random(1000) * 0.1vw) + " " + (random(1000) * 0.1vh) + " " + 0 + " " + (random(50) * -0.01rem) + $hot-particle-color;
+
+    @if $i < $hot-particle-count {
+        $h1: $h1 + ",";
+        $h2: $h2 + ",";
+        $h3: $h3 + ",";
+    }
+}
+
+.hot-particle {
+    border-radius: 50%;
+    opacity: $hot-particle-opacity;
+
+    position: absolute;
+    bottom: 0vh;
+
+    animation-name: $hot-animation-name;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.hot-layer-1 {
+    width: $hot-particle-size-1;
+    height: $hot-particle-size-1;
+    filter: blur($hot-particle-blur-1);
+    box-shadow: #{$h1};
+    animation-duration: $hot-speed-1;
+}
+.hot-layer-1.other {
+    animation-delay: -($hot-speed-1 / 2);
+}
+
+.hot-layer-2 {
+    width: $hot-particle-size-2;
+    height: $hot-particle-size-2;
+    filter: blur($hot-particle-blur-2);
+    box-shadow: #{$h2};
+    animation-duration: $hot-speed-2;
+}
+.hot-layer-2.other {
+    animation-delay: -($hot-speed-2 / 2);
+}
+
+.hot-layer-3 {
+    width: $hot-particle-size-3;
+    height: $hot-particle-size-3;
+    filter: blur($hot-particle-blur-3);
+    box-shadow: #{$h3};
+    animation-duration: $hot-speed-3;
+}
+.hot-layer-3.other {
+    animation-delay: -($hot-speed-3 / 2);
+}
+
+@keyframes rise {
+    100% {
+        transform: translateY(-200vh);
+    }
+}
+
+/* Others */
+
+.center-container {
+    border: 2px solid green;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-container {
+    opacity: 0.85;
 }
 
 .custom-slider {
@@ -38,79 +252,5 @@
         border-radius: 50%;
         background: #4CAF50;
         cursor: pointer;
-    }
-}
-
-.wrapper {
-    border: 1px solid red;
-    width: 100vw;
-    height: 100vh;
-    background: radial-gradient(farthest-corner at 10vw 5vh, #7397a1 1%, #3f2c41 100%);
-}
-
-$s1: "";
-$s2: "";
-$s3: "";
-
-@for $i from 1 through 400 {
-    $s1: $s1 + (random(1000) * 0.1vw) + " " + (random(1000) * 0.1vh) + " " + 0 + " " + (random(50) * -0.01rem) + #ffffff;
-    $s2: $s2 + (random(1000) * 0.1vw) + " " + (random(1000) * 0.1vh) + " " + 0 + " " + (random(50) * -0.01rem) + #ffffff;
-    $s3: $s3 + (random(1000) * 0.1vw) + " " + (random(1000) * 0.1vh) + " " + 0 + " " + (random(50) * -0.01rem) + #ffffff;
-
-    @if $i < 400 {
-        $s1: $s1 + ",";
-        $s2: $s2 + ",";
-        $s3: $s3 + ",";
-    }
-}
-
-.snow {
-    border-radius: 50%;
-    opacity: 0.80;
-
-    position: absolute;
-    top: -100vh;
-
-    animation-name: fall;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
-
-.layer1 {
-    width: 1rem;
-    height: 1rem;
-    filter: blur(1px);
-    box-shadow: #{$s1};
-    animation-duration: 6s;
-}
-.layer1.a {
-    animation-delay: -3s;
-}
-
-.layer2 {
-    width: 0.8rem;
-    height: 0.8rem;
-    filter: blur(2px);
-    box-shadow: #{$s2};
-    animation-duration: 8s;
-}
-.layer2.a {
-    animation-delay: -4s;
-}
-
-.layer3 {
-    width: 0.6rem;
-    height: 0.6rem;
-    filter: blur(4px);
-    box-shadow: #{$s3};
-    animation-duration: 10s;
-}
-.layer3.a {
-    animation-delay: -5s;
-}
-
-@keyframes fall {
-    100% {
-        transform: translateY(200vh);
     }
 }
